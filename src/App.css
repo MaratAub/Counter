@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  background-color: #282c34;
+  color: #61dafb;
+  font-family: 'Arial', sans-serif;
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  border: 4px solid #61dafb;
+  border-radius: 15px;
+  padding: 15px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-screen, .card-buttons {
+  border: 4px solid #61dafb;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+}
+
+.settings-inputs {
+  flex-direction: column;
+  gap: 45px;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  width: 120px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #61dafb;
+  border-radius: 5px;
+}
+
+/* Красная подсветка инпута при ошибке */
+.input-error {
+  background-color: #ffcccb;
+  border: 2px solid red;
+}
+
+.display-value {
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
+.counter-number {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+/* Красный цвет при достижении максимума */
+.text-red {
+  color: #f00;
+}
+
+.card-buttons {
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn {
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:active {
+  background-color: #21a1c4;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Адаптив: на мобилках блоки в колонку */
+@media (max-width: 680px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}
