@@ -1,42 +1,61 @@
 import './App.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {SettingsCard} from "./components/SettingsCard.tsx";
 import {CounterCard} from "./components/CounterCard.tsx";
 
 
 function App() {
 
+  const [maxValue, setMaxValue] = useState<number>(() =>
+    Number(localStorage.getItem("maxValue") || 10)
+  );
+  const [startValue, setStartValue] = useState<number>(() =>
+    Number(localStorage.getItem("startValue") || 0)
+  );
+  const [counterValue, setCounterValue] = useState<number>(() => {
+    const saved = localStorage.getItem("counterValue");
+    return saved ? JSON.parse(saved) : Number(localStorage.getItem("startValue") || 0);
+  });
 
-  // Активные значения, по которым работает счетчик
-  const [currentMax, setCurrentMax] = useState<number>(5);
-  const [currentStart, setCurrentStart] = useState<number>(0);
-  // Текущее число на табло
-  const [count, setCount] = useState<number>(0);
 
+  useEffect(() => {
+    localStorage.setItem("startValue", JSON.stringify(startValue));
+    localStorage.setItem("maxValue", JSON.stringify(maxValue));
+  }, [startValue, maxValue]);
 
+  useEffect(() => {
+    localStorage.setItem("counterValue", JSON.stringify(counterValue));
+  }, [counterValue]);
 
   // Обработчики
-  const incHandler = () => {
-    if (count < currentMax) setCount(count + 1);
+  const incCounter = () => {
+    if (counterValue < maxValue) setCounterValue(counterValue + 1);
   };
 
-  const resetHandler = () => {
-    setCount(currentStart);
+  const resetCounter = () => {
+    setCounterValue(startValue);
   };
 
-  const setSettingsHandler = (max:number, start:number) => {
-    setCurrentMax(max);
-    setCurrentStart(start);
-    setCount(start);
+  const setCounterSettings = (max:number, start:number) => {
+    setMaxValue(max);
+    setStartValue(start);
+    setCounterValue(start);
   };
 
   return (
     <div className="app-container">
       <div className="wrapper">
         {/* Блок настроек */}
-        <SettingsCard onSet={setSettingsHandler} currentMax={currentMax} currentStart={currentStart}/>
+        <SettingsCard onSet={setCounterSettings}
+                      maxValue={maxValue}
+                      startValue={startValue}
+        />
         {/* Блок счетчика */}
-        <CounterCard count={count} currentMax={currentMax} onInc={incHandler} onReset={resetHandler}/>
+        <CounterCard counterValue={counterValue}
+                     maxValue={maxValue}
+                     onInc={incCounter}
+                     onReset={resetCounter}
+        />
       </div>
     </div>
   );

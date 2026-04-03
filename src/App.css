@@ -71,7 +71,8 @@ input {
 }
 
 .counter-number {
-  font-size: 70px;
+  text-align: center;
+  font-size: 44px;
   font-weight: bold;
 }
 

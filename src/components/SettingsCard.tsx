@@ -3,20 +3,20 @@ import {Button} from "./Button.tsx";
 
 type Props = {
   onSet:(max:number, start: number) => void;
-  currentMax:number;
-  currentStart:number;
+  maxValue:number;
+  startValue:number;
 }
 
 export const SettingsCard = (props:Props) => {
   const {
     onSet,
-    currentMax,
-    currentStart,
+    maxValue,
+    startValue,
   } = props
 
-  const [maxInput, setMaxInput] = useState<number>(5);
-  const [startInput, setStartInput] = useState<number>(0);
-  // Ошибки валидации
+  const [maxInput, setMaxInput] = useState<number>(maxValue);
+  const [startInput, setStartInput] = useState<number>(startValue);
+
   const isError = startInput >= maxInput || startInput < 0 || maxInput < 0;
 
   const onSetHandler = () => {
@@ -25,12 +25,6 @@ export const SettingsCard = (props:Props) => {
     }
   }
 
-  // Обновляем локальные стейты, если currentMax/currentStart изменились извне
-  // (например, после сброса)
-  useState(() => {
-    setMaxInput(currentMax);
-    setStartInput(currentStart);
-  });
 
   return (
     <div className="card">
